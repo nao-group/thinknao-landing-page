@@ -78,8 +78,11 @@ export function Navigation() {
             <Button
               size="sm"
               className={`bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-500 ${isScrolled ? "px-4 h-8 text-xs" : "px-6"}`}
+              asChild
             >
-              Start studying
+              <a href="https://thinknao-web.vercel.app/" target="_blank" rel="noopener noreferrer">
+                Start studying
+              </a>
             </Button>
           </div>
 
@@ -143,11 +146,14 @@ export function Navigation() {
             >
               Sign in
             </Button> */}
-            <Button 
+            <Button
               className="flex-1 bg-foreground text-background rounded-full h-14 text-base"
               onClick={() => setIsMobileMenuOpen(false)}
+              asChild
             >
-              Start studying
+              <a href="https://thinknao-web.vercel.app/" target="_blank" rel="noopener noreferrer">
+                Start studying
+              </a>
             </Button>
           </div>
         </div>
