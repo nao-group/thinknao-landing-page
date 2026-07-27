@@ -47,10 +47,10 @@ export function IntegrationsSection() {
             Coverage
             <span className="w-8 h-px bg-foreground/30" />
           </span>
-          <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-6">
+          <h2 className="text-4xl lg:text-6xl font-display font-bold tracking-tight text-[#0F172A] mb-6">
             Reaching students
             <br />
-            across Indonesia.
+            <span className="text-[#D4A017]">across Indonesia.</span>
           </h2>
           <p className="text-xl text-muted-foreground">
             From Jakarta to Papua — ThinkNAO is built for Indonesian students, wherever you study.

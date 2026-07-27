@@ -111,17 +111,19 @@ function PracticeVisual() {
 
 // 02 — Colored subject icon cards matching thinknao-web palette
 function SubjectsVisual() {
-  // 2×2 grid: box 54×54, gap 12, centered in 200×160 viewBox
-  // Columns: x=40, x=106 — Rows: y=6, y=72
+  // 2×2 grid: box 54×54, centered in 200×172 viewBox
+  // Row 1: y=4 → bottom y=58, labels at y=70
+  // Row 2: y=88 → bottom y=142, labels at y=154
+  // 18px gap between row-1 label (70) and row-2 top (88) — no overlap
   const items = [
-    { bx: 40,  by: 6,  cx: 67,  cy: 33, bg: "#F7E7D3", color: "#D4A017", type: "math",      label: "Maths"   },
-    { bx: 106, by: 6,  cx: 133, cy: 33, bg: "#ECEDF8", color: "#6670B0", type: "physics",   label: "Physics" },
-    { bx: 40,  by: 72, cx: 67,  cy: 99, bg: "#FDEEE9", color: "#C65D2E", type: "chemistry", label: "Chem"    },
-    { bx: 106, by: 72, cx: 133, cy: 99, bg: "#EDE9FE", color: "#7C3AED", type: "chinese",   label: "Chinese" },
+    { bx: 40,  by: 4,  cx: 67,  cy: 31, bg: "#F7E7D3", color: "#D4A017", type: "math",      label: "Maths"   },
+    { bx: 106, by: 4,  cx: 133, cy: 31, bg: "#ECEDF8", color: "#6670B0", type: "physics",   label: "Physics" },
+    { bx: 40,  by: 88, cx: 67,  cy: 115, bg: "#FDEEE9", color: "#C65D2E", type: "chemistry", label: "Chem"    },
+    { bx: 106, by: 88, cx: 133, cy: 115, bg: "#EDE9FE", color: "#7C3AED", type: "chinese",   label: "Chinese" },
   ];
 
   return (
-    <svg viewBox="0 0 200 160" className="w-full h-full">
+    <svg viewBox="0 0 200 172" className="w-full h-full">
       {items.map(({ bx, by, cx, cy, bg, color, type, label }, i) => (
         <g key={type} opacity="0">
           <animate attributeName="opacity" values="0;1" dur="0.35s" begin={`${i * 0.14}s`} fill="freeze" />
@@ -198,7 +200,7 @@ function SubjectsVisual() {
 
           {/* Label */}
           <text
-            x={cx} y={by + 68}
+            x={cx} y={by + 66}
             textAnchor="middle"
             fontSize="8.5"
             fontFamily="monospace"
@@ -493,62 +495,32 @@ function AnimatedVisual({ type }: { type: string }) {
   }
 }
 
-function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index: number }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.2 }
-    );
-
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, []);
-
+function FeatureCard({ feature }: { feature: (typeof features)[0] }) {
   return (
-    <div
-      ref={cardRef}
-      className={`transition-all duration-700 mb-4 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-      }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
-    >
-      {/* Card with border-radius, zoom + yellow highlight on hover */}
-      <div className="group flex flex-col lg:flex-row gap-8 lg:gap-16 p-8 lg:p-10 rounded-2xl border border-foreground/10 bg-card cursor-default transition-all duration-300 ease-out hover:scale-[1.015] hover:border-[#D4A017] hover:shadow-[0_0_0_1px_#D4A017,0_12px_40px_rgba(212,160,23,0.1)] hover:bg-[#FFFCF4]">
-        {/* Number */}
-        <div className="shrink-0">
-          <span className="font-mono text-sm text-muted-foreground">{feature.number}</span>
+    <div className="group shrink-0 w-72 flex flex-col rounded-2xl border border-foreground/10 bg-card overflow-hidden cursor-default transition-all duration-300 ease-out hover:scale-[1.04] hover:border-[#D4A017] hover:shadow-[0_0_0_1px_#D4A017,0_10px_32px_rgba(212,160,23,0.12)] hover:bg-[#FFFCF4]">
+      {/* Visual area */}
+      <div className="h-44 flex items-center justify-center p-4 bg-foreground/[0.03] border-b border-foreground/10 text-foreground">
+        <div className="w-36 h-32">
+          <AnimatedVisual type={feature.visual} />
         </div>
+      </div>
 
-        {/* Content */}
-        <div className="flex-1 grid lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <h3 className="text-3xl lg:text-4xl font-display group-hover:translate-x-2 transition-transform duration-500">
-                {feature.title}
-              </h3>
-              {"badge" in feature && feature.badge && (
-                <span className="shrink-0 text-xs font-mono px-2 py-1 border border-foreground/20 text-muted-foreground">
-                  {feature.badge}
-                </span>
-              )}
-            </div>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {feature.description}
-            </p>
-          </div>
-
-          {/* Visual */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="w-48 h-40 text-foreground">
-              <AnimatedVisual type={feature.visual} />
-            </div>
-          </div>
+      {/* Text area */}
+      <div className="flex flex-col gap-2 p-5">
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[10px] text-muted-foreground">{feature.number}</span>
+          {"badge" in feature && feature.badge && (
+            <span className="text-[10px] font-mono px-1.5 py-0.5 border border-foreground/20 text-muted-foreground rounded">
+              {feature.badge}
+            </span>
+          )}
         </div>
+        <h3 className="text-base font-display leading-snug group-hover:translate-x-0.5 transition-transform duration-300">
+          {feature.title}
+        </h3>
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4">
+          {feature.description}
+        </p>
       </div>
     </div>
   );
@@ -557,6 +529,7 @@ function FeatureCard({ feature, index }: { feature: (typeof features)[0]; index:
 export function FeaturesSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollRef  = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -570,6 +543,11 @@ export function FeaturesSection() {
     return () => observer.disconnect();
   }, []);
 
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({ left: dir === "right" ? 300 : -300, behavior: "smooth" });
+  };
+
   return (
     <section
       id="features"
@@ -578,28 +556,53 @@ export function FeaturesSection() {
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="mb-16 lg:mb-24">
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-            <span className="w-8 h-px bg-foreground/30" />
-            Features
-          </span>
-          <h2
-            className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            Everything you need.
-            <br />
-            <span className="text-muted-foreground">Built for the CSCA.</span>
-          </h2>
-        </div>
+        <div className="flex items-end justify-between mb-10 gap-6">
+          <div>
+            <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
+              <span className="w-8 h-px bg-foreground/30" />
+              Features
+            </span>
+            <h2
+              className={`text-4xl lg:text-6xl font-display font-bold tracking-tight text-[#0F172A] transition-all duration-700 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
+              Everything you need.
+              <br />
+              <span className="text-[#D4A017]">Built for the CSCA.</span>
+            </h2>
+          </div>
 
-        {/* Features List */}
-        <div>
-          {features.map((feature, index) => (
-            <FeatureCard key={feature.number} feature={feature} index={index} />
-          ))}
+          {/* Scroll arrows */}
+          <div className="flex items-center gap-2 shrink-0 pb-1">
+            <button
+              onClick={() => scroll("left")}
+              aria-label="Scroll left"
+              className="w-10 h-10 rounded-xl border border-foreground/20 flex items-center justify-center text-muted-foreground transition-all duration-200 hover:border-[#D4A017] hover:text-foreground hover:shadow-[0_0_0_1px_#D4A017] hover:scale-105 active:scale-95"
+            >
+              ←
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              aria-label="Scroll right"
+              className="w-10 h-10 rounded-xl border border-foreground/20 flex items-center justify-center text-muted-foreground transition-all duration-200 hover:border-[#D4A017] hover:text-foreground hover:shadow-[0_0_0_1px_#D4A017] hover:scale-105 active:scale-95"
+            >
+              →
+            </button>
+          </div>
         </div>
+      </div>
+
+      {/* Full-width horizontal scroll */}
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto px-6 lg:px-12 pt-4 pb-6 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {features.map((feature) => (
+          <FeatureCard key={feature.number} feature={feature} />
+        ))}
+        {/* Trailing spacer */}
+        <div className="shrink-0 w-6 lg:w-12" />
       </div>
     </section>
   );

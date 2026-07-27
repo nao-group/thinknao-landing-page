@@ -70,16 +70,16 @@ export function HeroSection() {
         
         {/* Main headline */}
         <div className="mb-12">
-          <h1 
-            className={`text-[clamp(3rem,12vw,6rem)] font-display leading-[0.9] tracking-tight transition-all duration-1000 ${
+          <h1
+            className={`text-[clamp(3rem,12vw,6rem)] font-display font-bold leading-[0.9] tracking-tight text-[#0F172A] transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
             <span className="block">Built to help</span>
             <span className="block">
               you{" "}
-              <span className="relative inline-block">
-                <span 
+              <span className="relative inline-block text-[#D4A017]">
+                <span
                   key={wordIndex}
                   className="inline-flex"
                 >
@@ -121,7 +121,7 @@ export function HeroSection() {
               size="lg" 
               className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
             >
-              Start free
+              Study now
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 

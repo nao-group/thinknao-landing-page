@@ -51,10 +51,10 @@ export function CtaSection() {
             <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
               {/* Left content */}
               <div className="flex-1">
-                <h2 className="text-4xl lg:text-7xl font-display tracking-tight mb-8 leading-[0.95]">
+                <h2 className="text-4xl lg:text-7xl font-display font-bold tracking-tight text-[#0F172A] mb-8 leading-[0.95]">
                   Ready to ace
                   <br />
-                  the CSCA?
+                  <span className="text-[#D4A017]">the CSCA?</span>
                 </h2>
 
                 <p className="text-xl text-muted-foreground mb-12 leading-relaxed max-w-xl">
@@ -67,7 +67,7 @@ export function CtaSection() {
                     size="lg"
                     className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
                   >
-                    Start studying free
+                    Start studying
                     <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                   </Button>
                   <Button

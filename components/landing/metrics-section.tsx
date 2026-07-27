@@ -105,13 +105,13 @@ export function MetricsSection() {
               Live metrics
             </span>
             <h2
-              className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
+              className={`text-4xl lg:text-6xl font-display font-bold tracking-tight text-[#0F172A] transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
               Preparation you
               <br />
-              can measure.
+              <span className="text-[#D4A017]">can measure.</span>
             </h2>
           </div>
           <div className="flex items-center gap-4 font-mono text-sm text-muted-foreground">

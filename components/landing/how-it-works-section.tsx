@@ -91,13 +91,13 @@ export function HowItWorksSection() {
             Process
           </span>
           <h2
-            className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
+            className={`text-4xl lg:text-6xl font-display font-bold tracking-tight transition-all duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
             Three steps.
             <br />
-            <span className="text-background/50">Exam day, conquered.</span>
+            <span className="text-[#D4A017]">Exam day, conquered.</span>
           </h2>
         </div>
 
