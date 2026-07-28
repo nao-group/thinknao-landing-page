@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className={`${poppins.variable} ${jetbrainsMono.variable} font-sans antialiased`} suppressHydrationWarning>
         {children}
         <Analytics />
       </body>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
@@ -8,13 +9,19 @@ import Image from "next/image";
 const navLinks = [
   { name: "Features", href: "#features" },
   { name: "How it works", href: "#how-it-works" },
-  { name: "Subjects", href: "#features" },
+  { name: "About CSCA", href: "/csca" },
   { name: "Pricing", href: "#pricing" },
 ];
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  // Resolve href: on non-home pages, prefix hash links with "/"
+  const resolveHref = (href: string) =>
+    !isHome && href.startsWith("#") ? `/${href}` : href;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +52,7 @@ export function Navigation() {
           }`}
         >
           {/* Logo */}
-          <a href="#" className="flex items-center group">
+          <a href={isHome ? "#" : "/"} className="flex items-center group">
             <Image
               src="/logo/thinknao_full.svg"
               alt="ThinkNAO"
@@ -61,7 +68,7 @@ export function Navigation() {
             {navLinks.map((link) => (
               <a
                 key={link.name}
-                href={link.href}
+                href={resolveHref(link.href)}
                 className="text-sm text-foreground/70 hover:text-foreground transition-colors duration-300 relative group"
               >
                 {link.name}
@@ -117,7 +124,7 @@ export function Navigation() {
             {navLinks.map((link, i) => (
               <a
                 key={link.name}
-                href={link.href}
+                href={resolveHref(link.href)}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`text-5xl font-display text-foreground hover:text-muted-foreground transition-all duration-500 ${
                   isMobileMenuOpen 

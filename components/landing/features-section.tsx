@@ -528,8 +528,10 @@ function FeatureCard({ feature }: { feature: (typeof features)[0] }) {
 
 export function FeaturesSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const scrollRef  = useRef<HTMLDivElement>(null);
+  const sectionRef  = useRef<HTMLDivElement>(null);
+  const scrollRef   = useRef<HTMLDivElement>(null);
+  const rafRef      = useRef<number>(0);
+  const pausedRef   = useRef(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -541,6 +543,43 @@ export function FeaturesSection() {
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
+  }, []);
+
+  // Auto-scroll: 0.6 px/frame (~36 px/s at 60 fps), loops seamlessly
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const SPEED = 0.6;
+
+    const tick = () => {
+      if (!pausedRef.current && el) {
+        el.scrollLeft += SPEED;
+        // Loop: when we reach the end, jump back to start
+        if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 1) {
+          el.scrollLeft = 0;
+        }
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    const pause  = () => { pausedRef.current = true; };
+    const resume = () => { pausedRef.current = false; };
+
+    el.addEventListener("mouseenter", pause);
+    el.addEventListener("mouseleave", resume);
+    el.addEventListener("touchstart", pause, { passive: true });
+    el.addEventListener("touchend",   resume);
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      el.removeEventListener("mouseenter", pause);
+      el.removeEventListener("mouseleave", resume);
+      el.removeEventListener("touchstart", pause);
+      el.removeEventListener("touchend",   resume);
+    };
   }, []);
 
   const scroll = (dir: "left" | "right") => {
