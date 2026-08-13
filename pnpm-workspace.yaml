@@ -1,5 +1,3 @@
 onlyBuiltDependencies:
   - sharp
 nodeLinker: hoisted
-allowBuilds:
-  sharp: set this to true or false
