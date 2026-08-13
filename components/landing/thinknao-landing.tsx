@@ -371,7 +371,7 @@ export function ThinkNaoLanding() {
             <span className="social-bubble bubble-chat"><MessageCircle size={15} /></span>
           </div>
           <div className="community-copy">
-            <div className="discord-mark"><MessageCircle size={23} /></div>
+            <div className="discord-mark"><Image src="/images/community/discord.svg" alt="Discord Logo" width={40} height={40} /></div>
             <div>
               <div className="section-label"><span>02</span> COMMUNITY</div>
               <h2>Join the ThinkNAO Discord Community</h2>
