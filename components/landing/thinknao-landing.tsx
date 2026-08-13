@@ -29,28 +29,28 @@ import {
 
 const features = [
   {
-    icon: Bot,
+    // icon: Bot,
     eyebrow: "01 · Your always-on tutor",
     title: "AI assistant that teaches, not just answers.",
     body: "Ask in English or Chinese. Get a guided hint, a clear explanation, and the next step—grounded in verified answer keys.",
     className: "feature-ai",
   },
   {
-    icon: Sparkles,
+    // icon: Sparkles,
     eyebrow: "02 · Practice without limits",
     title: "Questions that grow with you.",
     body: "When the curated bank runs out, ThinkNAO generates more. Difficulty ratios adapt gradually to your real performance.",
     className: "feature-practice",
   },
   {
-    icon: Clock3,
+    // icon: Clock3,
     eyebrow: "03 · Exam-day confidence",
     title: "Full-length mock exams.",
     body: "Train with the real CSCA rhythm: timed, structured, and scored with a useful post-exam breakdown.",
     className: "feature-exam",
   },
   {
-    icon: Trophy,
+    // icon: Trophy,
     eyebrow: "04 · Friendly competition",
     title: "A leaderboard worth climbing.",
     body: "Build a study streak, climb the monthly ranks, and unlock winner advantages and community rewards.",
@@ -346,11 +346,11 @@ export function ThinkNaoLanding() {
         </div>
         <div className="features-grid">
           {features.map((feature, index) => {
-            const Icon = feature.icon;
+            // const Icon = feature.icon;
             return (
               <article className={`feature-card ${feature.className}`} key={feature.title} data-reveal style={{ "--delay": `${index * 45}ms` } as React.CSSProperties}>
                 <div className="feature-copy">
-                  <div className="feature-icon"><Icon size={22} /></div>
+                  {/* <div className="feature-icon"><Icon size={22} /></div> */}
                   <span>{feature.eyebrow}</span>
                   <h3>{feature.title}</h3>
                   <p>{feature.body}</p>
