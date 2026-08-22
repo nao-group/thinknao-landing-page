@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
+  ArrowUpRight,
   Award,
   BookOpenCheck,
   Bot,
@@ -103,6 +104,49 @@ const testimonials = [
     name: "Felicia Tan",
     detail: "Independent learner · Medan",
     initials: "FT",
+  },
+];
+
+const subjects = [
+  {
+    id: "math",
+    label: "Mathematics",
+    labelCn: "算数学",
+    description: "Functions, calculus, algebra, and the quantitative reasoning every CSCA problem demands.",
+    gradient: "linear-gradient(150deg, #1c2d52 0%, #0f172a 100%)",
+    symbol: "∑",
+  },
+  {
+    id: "physics",
+    label: "Physics",
+    labelCn: "物理学",
+    description: "Mechanics, thermodynamics, and electromagnetism—understand the principles behind every formula.",
+    gradient: "linear-gradient(150deg, #0c3a50 0%, #071b28 100%)",
+    symbol: "φ",
+  },
+  {
+    id: "chemistry",
+    label: "Chemistry",
+    labelCn: "化学",
+    description: "Atomic structure, reactions, and organic chemistry—grounded in verified CSCA content.",
+    gradient: "linear-gradient(150deg, #301065 0%, #150830 100%)",
+    symbol: "⬡",
+  },
+  {
+    id: "stem-chinese",
+    label: "STEM Chinese",
+    labelCn: "理科汉语",
+    description: "Master the technical Mandarin vocabulary needed to communicate science fluently in Chinese.",
+    gradient: "linear-gradient(150deg, #8b1c1c 0%, #480e0e 100%)",
+    symbol: "理",
+  },
+  {
+    id: "humanities-chinese",
+    label: "Humanities Chinese",
+    labelCn: "文科汉语",
+    description: "Academic reading, writing, and critical analysis in Mandarin for the humanities track.",
+    gradient: "linear-gradient(150deg, #5c3208 0%, #2a1505 100%)",
+    symbol: "文",
   },
 ];
 
@@ -243,6 +287,7 @@ function FeatureVisual({ type }: { type: string }) {
 export function ThinkNaoLanding() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [activeSubject, setActiveSubject] = useState<string>("math");
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -359,6 +404,48 @@ export function ThinkNaoLanding() {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      <section className="section subjects-section" id="subjects">
+        <div className="subjects-header split-heading" data-reveal>
+          <div><span className="section-number">✦</span><p>COVERED SUBJECTS</p></div>
+          <h2>Five subjects.<br /><em>One platform.</em></h2>
+          <p>Everything you need for the CSCA—organised into focused, adaptive learning paths across science and language.</p>
+        </div>
+        <div
+          className="subjects-strip"
+          data-reveal
+          onMouseLeave={() => setActiveSubject("math")}
+        >
+          {subjects.map((subject) => (
+            <div
+              key={subject.id}
+              className={`subject-card${activeSubject === subject.id ? " is-active" : ""}`}
+              style={{ "--subject-gradient": subject.gradient } as React.CSSProperties}
+              onMouseEnter={() => setActiveSubject(subject.id)}
+              onFocus={() => setActiveSubject(subject.id)}
+              tabIndex={0}
+              role="button"
+              aria-label={subject.label}
+            >
+              <div className="subject-bg" aria-hidden="true" />
+              <span className="subject-symbol" aria-hidden="true">{subject.symbol}</span>
+
+              <div className="subject-collapsed" aria-hidden={activeSubject === subject.id}>
+                <span className="subject-label-vertical">{subject.label}</span>
+              </div>
+
+              <div className="subject-expanded" aria-hidden={activeSubject !== subject.id}>
+                <div className="subject-arrow"><ArrowUpRight size={16} /></div>
+                <div className="subject-expanded-copy">
+                  <span className="subject-cn">{subject.labelCn}</span>
+                  <h3>{subject.label}</h3>
+                  <p>{subject.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
