@@ -144,6 +144,34 @@ img { max-width: 100%; }
 .menu-button,
 .mobile-only { display: none; }
 
+/* Language switcher */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 3px;
+}
+.lang-btn {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 100px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease;
+  line-height: 1;
+  white-space: nowrap;
+}
+.lang-btn:hover { color: var(--ink); }
+.lang-btn-active { background: var(--ink); color: #fff !important; }
+
 .button {
   position: relative;
   display: inline-flex;
@@ -245,11 +273,12 @@ img { max-width: 100%; }
   max-width: 980px;
   margin: 0 auto 20px;
   font-size: clamp(2.9rem, 5vw, 5rem);
-  line-height: 0.96;
+  line-height: 1.08;
   letter-spacing: -0.062em;
   font-weight: 650;
 }
 .hero h1 span { color: var(--primary); }
+.hero h1 .hero-connector { color: inherit; }
 .hero-copy > p { max-width: 670px; margin: 0 auto; color: #515b6e; font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.72; }
 .hero-actions { display: flex; justify-content: center; align-items: center; gap: 22px; margin-top: 28px; }
 .hero-note { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; color: #657083; font-size: 0.72rem; }
@@ -466,6 +495,13 @@ img { max-width: 100%; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+/* CJK characters are already upright in vertical-rl — no rotation needed */
+.subject-label-vertical--cjk {
+  transform: none;
+  text-transform: none;
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
 }
 
 .subject-expanded {
