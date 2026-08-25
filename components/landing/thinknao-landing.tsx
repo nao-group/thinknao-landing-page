@@ -271,12 +271,12 @@ function ThinkNaoLandingInner() {
           <a href="#community" onClick={closeMenu}>{t.nav.community}</a>
           <a href="#pricing" onClick={closeMenu}>{t.nav.pricing}</a>
           <a href="#faq" onClick={closeMenu}>{t.nav.faq}</a>
-          <a className="nav-login mobile-only" href="#pricing" onClick={closeMenu}>{t.nav.login}</a>
+          <a className="nav-login mobile-only" href="https://thinknao-web.vercel.app/" target="_blank" rel="noreferrer" onClick={closeMenu}>{t.nav.login}</a>
           <a className="button button-small mobile-only" href="#pricing" onClick={closeMenu}>{t.nav.startLearning} <ArrowRight size={15} /></a>
         </div>
         <div className="nav-actions">
           <LanguageSwitcher />
-          <a className="nav-login" href="#pricing">{t.nav.login}</a>
+          <a className="nav-login" href="https://thinknao-web.vercel.app/" target="_blank" rel="noreferrer">{t.nav.login}</a>
           <a className="button button-small" href="#pricing">{t.nav.startLearning} <ArrowRight size={15} /></a>
         </div>
         <button className="menu-button" type="button" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>
@@ -462,14 +462,14 @@ function ThinkNaoLandingInner() {
           <article className="price-card" data-reveal>
             <div className="price-head"><span>{t.pricing.explorer.name}</span><p>{t.pricing.explorer.tagline}</p></div>
             <div className="price"><strong>{t.pricing.explorer.price}</strong><span>{t.pricing.explorer.period}</span></div>
-            <a className="button button-outline" href="#top">{t.pricing.explorer.cta}</a>
+            <a className="button button-outline" href="https://thinknao-web.vercel.app/" target="_blank" rel="noreferrer">{t.pricing.explorer.cta}</a>
             <ul>{t.pricing.explorer.features.map((f, i) => <li key={i}><Check /> {f}</li>)}</ul>
           </article>
           <article className="price-card price-featured" data-reveal>
             <div className="popular-label"><Sparkles size={14} /> {t.pricing.mostPopular}</div>
             <div className="price-head"><span>{t.pricing.climber.name}</span><p>{t.pricing.climber.tagline}</p></div>
             <div className="price"><small>Rp</small><strong>{t.pricing.climber.price}</strong><span>{t.pricing.climber.period}</span></div>
-            <a className="button button-cream" href="#top">{t.pricing.climber.cta} <ArrowRight size={17} /></a>
+            <a className="button button-cream" href="https://thinknao-web.vercel.app/" target="_blank" rel="noreferrer">{t.pricing.climber.cta} <ArrowRight size={17} /></a>
             <ul>{t.pricing.climber.features.map((f, i) => <li key={i}><Check /> {f}</li>)}</ul>
           </article>
         </div>
