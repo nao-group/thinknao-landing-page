@@ -2,9 +2,11 @@
 
 import { ArrowRight, Check } from "lucide-react";
 
+const MEMBER_URL = process.env.NEXT_PUBLIC_MEMBER_URL ?? "https://thinknao-web.vercel.app";
+
 const plans = [
   {
-    id: "monthly",
+    id: "THINK-1MONTH",
     duration: "1 Month",
     pricePerMonth: 149000,
     totalPrice: 149000,
@@ -13,7 +15,7 @@ const plans = [
     popular: false,
   },
   {
-    id: "biannual",
+    id: "THINK-6MONTH",
     duration: "6 Months",
     pricePerMonth: 119000,
     totalPrice: 714000,
@@ -22,7 +24,7 @@ const plans = [
     popular: true,
   },
   {
-    id: "annual",
+    id: "THINK-12MONTH",
     duration: "1 Year",
     pricePerMonth: 99000,
     totalPrice: 1188000,
@@ -128,7 +130,8 @@ export function PricingSection() {
               </ul>
 
               {/* CTA */}
-              <button
+              <a
+                href={`${MEMBER_URL}/checkout?plan=${plan.id}`}
                 className={`w-full py-4 rounded-xl flex items-center justify-center gap-2 text-sm font-medium transition-all duration-200 ease-out group hover:scale-[1.03] active:scale-[0.97] ${
                   plan.popular
                     ? "bg-[#0F172A] text-white hover:bg-[#0F172A]/90 hover:shadow-[0_0_0_2px_#D4A017,0_6px_20px_rgba(212,160,23,0.18)]"
@@ -137,7 +140,7 @@ export function PricingSection() {
               >
                 Get started
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </button>
+              </a>
             </div>
           ))}
         </div>

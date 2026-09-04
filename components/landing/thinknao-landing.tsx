@@ -459,19 +459,22 @@ function ThinkNaoLandingInner() {
           <p>{t.pricing.subheading}</p>
         </div>
         <div className="pricing-grid">
-          <article className="price-card" data-reveal>
-            <div className="price-head"><span>{t.pricing.explorer.name}</span><p>{t.pricing.explorer.tagline}</p></div>
-            <div className="price"><strong>{t.pricing.explorer.price}</strong><span>{t.pricing.explorer.period}</span></div>
-            <a className="button button-outline" href="https://thinknao-web.vercel.app/" target="_blank" rel="noreferrer">{t.pricing.explorer.cta}</a>
-            <ul>{t.pricing.explorer.features.map((f, i) => <li key={i}><Check /> {f}</li>)}</ul>
-          </article>
-          <article className="price-card price-featured" data-reveal>
-            <div className="popular-label"><Sparkles size={14} /> {t.pricing.mostPopular}</div>
-            <div className="price-head"><span>{t.pricing.climber.name}</span><p>{t.pricing.climber.tagline}</p></div>
-            <div className="price"><small>Rp</small><strong>{t.pricing.climber.price}</strong><span>{t.pricing.climber.period}</span></div>
-            <a className="button button-cream" href="https://thinknao-web.vercel.app/" target="_blank" rel="noreferrer">{t.pricing.climber.cta} <ArrowRight size={17} /></a>
-            <ul>{t.pricing.climber.features.map((f, i) => <li key={i}><Check /> {f}</li>)}</ul>
-          </article>
+          {t.pricing.plans.map((plan) => (
+            <article key={plan.id} className={`price-card${plan.popular ? " price-featured" : ""}`} data-reveal>
+              {plan.savingsBadge && (
+                <div className="popular-label"><Sparkles size={14} /> {plan.savingsBadge}</div>
+              )}
+              <div className="price-head"><span>{plan.name}</span></div>
+              <div className="price"><small>Rp</small><strong>{plan.price}</strong><span>{t.pricing.perMonth}</span></div>
+              {plan.billingNote && <p style={{fontSize:"0.65rem",color:"var(--muted)",margin:"-10px 0 14px",letterSpacing:"0.02em"}}>{plan.billingNote}</p>}
+              <a
+                className={`button ${plan.popular ? "button-cream" : "button-outline"}`}
+                href={`${process.env.NEXT_PUBLIC_MEMBER_URL ?? "https://thinknao-web.vercel.app"}/checkout?plan=${plan.id}`}
+              >
+                {plan.cta} <ArrowRight size={17} />
+              </a>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -480,7 +483,10 @@ function ThinkNaoLandingInner() {
           <div className="section-label"><span>{t.faq.sectionNumber}</span> {t.faq.label}</div>
           <h2>{t.faq.heading}</h2>
           <p>{t.faq.subheading}</p>
-          <a className="text-link" href="mailto:hello@thinknao.com">{t.faq.askUs} <ArrowRight size={16} /></a>
+          <div style={{display:"flex",flexDirection:"column",gap:"4px"}}>
+            <a className="text-link" href="https://wa.me/6285284229998?text=Hi%20ThinkNao!%20I%20have%20a%20question%20about%20the%20subscription%20plans." target="_blank" rel="noreferrer">Ask us via WhatsApp <ArrowRight size={16} /></a>
+            <a className="text-link" href="mailto:naogroup2026@gmail.com">Ask us via Email <ArrowRight size={16} /></a>
+          </div>
         </div>
         <div className="faq-list" data-reveal>
           {t.faq.items.map((faq, index) => {
